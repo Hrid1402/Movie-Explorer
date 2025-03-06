@@ -1,0 +1,18 @@
+.container{
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    top: 0;
+    padding: 0 4%;
+    width: 100%;
+    background-color: black;
+    color: white;
+    box-sizing: border-box;
+    z-index: 10;
+}
+.buttons-path{
+    display: flex;
+    flex-direction: row;
+    gap: 35px;
+}

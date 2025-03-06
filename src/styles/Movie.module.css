@@ -1,0 +1,84 @@
+.container{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: rgb(119, 119, 119);
+}
+.no-image{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url('https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg');
+}
+.poster{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+.container::after{
+    transition: opacity 0.3s;
+    opacity: 0;
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+}
+
+.movie-data{
+    transition: bottom 0.3s opacity 0.5s;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    z-index: 1;
+    opacity: 0;
+    bottom: -100px;
+    width: 100%;
+    position: absolute;
+}
+.movie-main-data{
+    display: flex;
+    flex-direction: column;
+}
+.title{
+    margin: 0;
+    color: white;
+}
+.type{
+    margin: 0;
+    font-weight: 400;
+    color: rgb(206, 206, 206);
+}
+.rating{
+    right: 0;
+    color: white;
+    display: flex;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+}
+.rating-text{
+    margin: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .container:hover .poster{
+        transition: transform 0.2s;
+        transform: scale(1.15);
+    }
+    .container:hover.container::after{
+        transition: opacity 0.2s;
+        opacity: 1;
+    }
+    .container:hover .movie-data{
+        transition: bottom 0.5s, opacity 0.6s;
+        opacity: 1;
+        bottom: 0;
+    }
+}
