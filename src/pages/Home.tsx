@@ -4,7 +4,9 @@ import { useTranslation } from "react-i18next";
 import Movie from '../components/Movie.js';
 import styles from '../styles/Home.module.css'
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Outlet, useLocation } from 'react-router-dom';
+import PropagateLoader from "react-spinners/PropagateLoader";
+import {getMovieImages} from '../api/moviesData.js'
+import { Outlet, useLocation, Link } from 'react-router-dom';
 
 interface MovieInterface {
   backdrop_path: string;
@@ -25,12 +27,17 @@ interface MovieInterface {
 }
 
 function Home() {
+  const imageURL:String = 'https://image.tmdb.org/t/p/original/';
+  const imageURL400:String = 'https://image.tmdb.org/t/p/w400/';
+
   const [movies, setMovies] = useState<MovieInterface[]>([]);
   let page = useRef<number>(1);
   let hasItems = useRef<boolean>(true);
   const location = useLocation();
   const { t, i18n } = useTranslation();
 
+  const [mainMovie, setMainMovie] = useState<any>(null);
+  
   useEffect(() => {
     if (location.pathname !== "/") {
       document.body.style.overflow = "hidden"
@@ -41,6 +48,16 @@ function Home() {
       document.body.style.overflow = "auto";
     };
   }, [location.pathname]);
+
+  useEffect(()=>{
+    if(!mainMovie || mainMovie.logo) return
+    const addLogoMainMovie = async()=>{
+      const logo = await getMovieImages(mainMovie.media_type, mainMovie.id, i18n.language);
+      console.log('main logo', imageURL400+logo.file_path);
+      setMainMovie((prev:any)=>({...prev, logo: imageURL400 + logo.file_path}));
+    }
+    addLogoMainMovie();
+  }, [mainMovie])
   
   useEffect(()=>{
     window.scrollTo(0, 0);
@@ -56,21 +73,34 @@ function Home() {
     console.log(trending);
     if(trending.results.length>1){
       page.current +=1;
+      setMainMovie(trending.results[Math.floor(Math.random() * trending.results.length)]);
       setMovies(prev=>[...prev, ...trending.results]);
     }else{
       hasItems.current = false;
     }
-    
   }
 
   return (
     <div className={styles.home}>
-      <div>Current main movies</div>
+      {
+        mainMovie && 
+        <div className={styles['main-movies']} >
+          <div className={styles['main-movies-left']}>
+            {mainMovie.logo && <img className={styles['main-movies-logo']} src={mainMovie.logo}/>}
+            <div className={styles['main-movies-data-text']}>
+              <p><b>{mainMovie.original_title}: </b> {mainMovie.overview}</p>
+            </div>
+            <Link className={styles['more-inf']} to={`/${mainMovie.media_type}/${mainMovie.id}`}>{t('more_inf')}</Link>
+          </div>
+          <img className={styles['main-movie-backdrop']} src={imageURL + mainMovie.backdrop_path}/>
+        </div>
+      }
+      <h3 className={styles['trending-text']}>{t('trending_text')}</h3>
       <InfiniteScroll
           dataLength={movies.length}
           next={setMoviesData}
           hasMore={hasItems.current}
-          loader={'Loading'}>
+          loader={<div style={{width:'100%', display:'grid', placeContent:'center', marginBottom:'30px'}}><PropagateLoader color='white'/></div>}>
           <div className={styles['movies-container']}>
           {
             movies.map((movie, i)=>{

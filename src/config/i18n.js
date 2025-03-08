@@ -17,10 +17,15 @@ i18n
             home: 'Home',
             ogTitle: 'Original Title',
             add: 'Add to Library',
+            remove: 'Remove from Library',
             seasons: 'Seasons',
             episodes: 'Episodes',
             cast: 'Cast',
-            similar: 'Similar Titles'
+            similar: 'Similar Titles',
+            trending: 'Trending',
+            trending_text: 'Trending This Week',
+            more_inf: 'Details',
+            type_here:'Type here to search...'
           }
         },
         es: {
@@ -30,10 +35,15 @@ i18n
             home: 'Inicio',
             ogTitle: 'Título Original',
             add: 'Agregar a la Biblioteca',
+            remove: 'Eliminar de la Biblioteca',
             seasons: 'Temporadas',
             episodes: 'Episodios',
             cast: 'Elenco',
-            similar: 'Títulos Similares'
+            similar: 'Títulos Similares',
+            trending: 'Tendencias',
+            trending_text: 'Tendencias de la Semana',
+            more_inf: 'Detalles',
+            type_here:'Escribe aquí para buscar...'
           }
         }
       }

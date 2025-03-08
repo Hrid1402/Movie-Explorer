@@ -26,6 +26,7 @@ interface Movie {
 interface MovieProps {
     movie: Movie;
     type: String | undefined;
+    path: String | undefined;
 }
 
 function capitalizeFirstLetter(text:String) {
@@ -33,10 +34,10 @@ function capitalizeFirstLetter(text:String) {
 }
 
 
-function Movie({movie, type}: MovieProps) {
+function Movie({movie, type, path='/'}: MovieProps) {
     const [error, setError] = useState(false);
   return (
-    <Link className={`${styles.container} ${error ? styles['no-image'] : ''}`} to={`/${type ?? movie.media_type}/${movie.id}`}>
+    <Link className={`${styles.container} ${error ? styles['no-image'] : ''}`} to={`${path}${type ?? movie.media_type}/${movie.id}`}>
         <img style={{display:`${error ? 'none' : 'block'}`}} className={styles.poster} src={imageURL + movie.poster_path} loading='lazy'
         onError={() => setError(true)}
         />

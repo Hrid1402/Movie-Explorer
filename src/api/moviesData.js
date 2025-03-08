@@ -2,6 +2,7 @@ import axios from "axios";
 
 export async function getTrendingMovies(page, time, language){
     try {
+        //await new Promise(r => setTimeout(r, 5000));
         const data = await axios.get(`https://api.themoviedb.org/3/trending/all/${time}?language=${language}&page=${page}`,{
             headers:{
                 Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
@@ -36,6 +37,19 @@ export async function getSimilarMovies(type, id, language){
         return data.data;
     } catch (error) {
         console.log('Error trying to fetch movie by id', error.error);
+    }
+}
+
+export async function searchByName(name, language){
+    try {
+        const data = await axios.get(`https://api.themoviedb.org/3/search/multi?query=${name}&language=${language}`,{
+            headers:{
+                Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`
+            }
+        });
+        return data.data;
+    } catch (error) {
+        console.log('Error trying to search movie by name', error.error);
     }
 }
 

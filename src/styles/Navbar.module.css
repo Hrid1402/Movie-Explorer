@@ -1,18 +1,105 @@
 .container{
+    height: 50px;
     position: fixed;
     display: flex;
+    align-items: center;
     flex-direction: row;
     justify-content: space-between;
     top: 0;
     padding: 0 4%;
     width: 100%;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.822);
     color: white;
     box-sizing: border-box;
     z-index: 10;
+}
+.bottom-navBar{
+    height: 50px;
+    position: fixed;
+    display: none;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    bottom: 0;
+    padding: 0 4%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.822);
+    color: white;
+    box-sizing: border-box;
+    z-index: 10;
+}
+.bottom-navBar a svg{
+    font-size: 25px;
 }
 .buttons-path{
     display: flex;
     flex-direction: row;
     gap: 35px;
+}
+.buttons-path a{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2px;
+    color: white;
+    font-size: 18px;
+}
+.buttons-path a svg{
+    font-size: 22px;
+}
+.right-side{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+}
+.right-side select{
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+    font-size: 15px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.right-side select option{
+    color: black;
+}
+.home-btn{
+
+}
+.search-btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    font-size: 28px;
+}
+
+@media (width<=675px) {
+    .bottom-navBar{
+        display: flex;
+    }
+    .hidden-btn{
+        display: none !important;
+    }
+    .search-btn{
+        display: none !important;
+    }
+    .buttons-path{
+        gap: 15px;
+    }
+    .buttons-path a{
+        font-size: 16px;
+    }
+    .buttons-path a svg{
+        font-size: 17px;
+    }
+    .right-side select{
+        font-size: 12px;
+        padding: 5px 5px;
+    }
+    .container{
+        gap: 5px;
+    }
+
 }

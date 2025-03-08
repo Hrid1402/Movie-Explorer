@@ -16,7 +16,6 @@ function MovieInf() {
     const imageURL2W:String = 'https://image.tmdb.org/t/p/w200/';
     const imageURL3W:String = 'https://image.tmdb.org/t/p/w300/';
     const imageURL4W:String = 'https://image.tmdb.org/t/p/w400/';
-    
 
     const {type, id} = useParams();
     const [loading, setLoading] = useState<boolean>(false);
@@ -30,6 +29,18 @@ function MovieInf() {
     const [similars, setSimilars] = useState<any>([]);
     const { t, i18n } = useTranslation();
 
+    const [myLibrary, setMyLibrary] = useState<any>(JSON.parse(localStorage.getItem("library") || "[]"));
+    const [onLibrary, setOnLibrary] = useState<boolean>(false);
+
+    useEffect(()=>{
+        if (myLibrary.length===0){
+            localStorage.setItem("library", "[]");
+        }else{
+            setOnLibrary(myLibrary.some((m:any)=>m.id===id));
+        }
+
+    },[id, type])
+
     useEffect(()=>{
         setMovieData();
         setCurTrailer(0);
@@ -40,6 +51,25 @@ function MovieInf() {
         getEpisodesData()
     }, [curSeasonData])
 
+    function addLibrary(){
+        const movieToAdd = {
+            id:id, 
+            name:allMovieData.original_title ?? allMovieData.original_name,
+            poster_path: allMovieData.poster_path,
+            media_type: type
+        }
+        localStorage.setItem("library", JSON.stringify([...myLibrary, movieToAdd]));
+        setMyLibrary((prev:any)=>[...prev, movieToAdd]);
+        setOnLibrary(true);
+    }
+
+    function removeFromLibrary(){
+        const cleanLibrary = myLibrary.filter((l:any)=>l.id !== id || l.media_type !== type);
+        localStorage.setItem("library", JSON.stringify(cleanLibrary));
+        setMyLibrary(cleanLibrary);
+        setOnLibrary(false);
+    }
+
     async function getEpisodesData(){
         const data = await getSeasonData(type, id, curSeasonData.season_number,i18n.language);
         console.log('episodes data', data);
@@ -49,6 +79,7 @@ function MovieInf() {
     async function setMovieData() {
         setLoading(true);
         getMovieImages(type, id, i18n.language).then((data:any)=>{
+            console.log('logo', data ? data.file_path:null);
             setMovieLogo(data ? data.file_path : null)
         });
         getMovieDataById(type, id, i18n.language).then((data:any)=>{
@@ -118,7 +149,7 @@ function MovieInf() {
             <>
                 <div className={styles['images-container']}>
                     <div className={styles['left-content']}>
-                        <img className={styles.poster} src={imageURL+allMovieData.poster_path} alt="" />
+                        <img className={styles.poster} src={imageURL+allMovieData.poster_path} alt="poster" />
                         <div className={styles['small-data']}>
                             <p>{(new Date(allMovieData.release_date ?? allMovieData.first_air_date)).getFullYear()}</p>
                             {allMovieData.runtime && <p>{convertMinutes(allMovieData.runtime)}</p>}
@@ -151,7 +182,9 @@ function MovieInf() {
                             })}
                         </div>
                         <p className={styles.overview}>{allMovieData.overview}</p>
-                        <button className={styles['add-btn']}>{t('add')}</button>
+                        {onLibrary ? 
+                        <button onClick={()=>removeFromLibrary()} className={styles['add-btn']}>{t('remove')}</button>:
+                        <button onClick={()=>addLibrary()} className={styles['add-btn']}>{t('add')}</button>}
                     </div>
                 </div>
                 
@@ -195,7 +228,7 @@ function MovieInf() {
                                                     episodesData.episodes.map((episode:any)=>{
                                                     const date = compareDate(episode.air_date);
                                                     return(
-                                                        <div className={styles.episode}>
+                                                        <div className={styles.episode} key={episode.id}>
                                                             <div className={styles.episodeImage}>
                                                                 <img className={`${date !== 'Past' ? styles.futureEpisodeIMG : ''}`} src={imageURL3W+episode.still_path} onError={e=>e.currentTarget.src=imageURL3W+allMovieData.poster_path}/>
                                                                 <div className={styles['episode-number']}>
