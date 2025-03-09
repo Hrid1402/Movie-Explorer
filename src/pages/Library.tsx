@@ -25,7 +25,7 @@ function Library() {
             {
                 myLibrary.map((movie:any)=>{
                     if(movie.media_type === curFilter || curFilter==='all'){
-                        return <Movie key={movie.id} movie={movie}/>
+                        return <Movie key={movie.id} movie={movie} type={undefined} path={undefined}/>
                     }
                   })
             }

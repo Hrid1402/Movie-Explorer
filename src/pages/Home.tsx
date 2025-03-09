@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {getTrendingMovies} from '../api/moviesData.js'
+import {getTrendingMovies, getMovieImages} from '../api/moviesData.ts'
 import { useTranslation } from "react-i18next";
 import Movie from '../components/Movie.js';
 import styles from '../styles/Home.module.css'
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PropagateLoader from "react-spinners/PropagateLoader";
-import {getMovieImages} from '../api/moviesData.js'
 import { Outlet, useLocation, Link } from 'react-router-dom';
 
 interface MovieInterface {
+  name: string;
   backdrop_path: string;
   id: number;
   title: string;
@@ -105,7 +105,7 @@ function Home() {
           {
             movies.map((movie, i)=>{
               if(movie.media_type === 'person')return
-              return <Movie key={i} movie={movie}/>
+              return <Movie key={i} type={undefined} path={undefined} movie={movie}/>
             })
           }
         </div>

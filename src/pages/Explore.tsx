@@ -7,7 +7,7 @@ import PropagateLoader from "react-spinners/PropagateLoader";
 import "../config/i18n.js";
 import Movie from '../components/Movie.tsx'
 import { v4 as uuidv4 } from 'uuid';
-import {opt_getTrending, opt_getLatest, opt_getBestRated, opt_getPopular, opt_getUpcoming, opt_getNowPlaying, opt_getByGenre} from '../api/moviesData.js'
+import {opt_getTrending, opt_getLatest, opt_getBestRated, opt_getPopular, opt_getUpcoming, opt_getNowPlaying, opt_getByGenre} from '../api/moviesData.ts'
 
 function Explore() {
     const options = [
@@ -52,7 +52,7 @@ function Explore() {
     };
 
 
-    const fetchOptions: Record<string, () => void> = {
+    const fetchOptions: Record<string, any> = {
         opt_trending: opt_getTrending,
         opt_latest: opt_getLatest,
         opt_bestRated: opt_getBestRated,
@@ -107,7 +107,7 @@ function Explore() {
                 page.current += 1;
                 let data:any = [];
                 if(isGenreOption(curOption)){
-                    data = await opt_getByGenre(page.current, type, genreIds[curOption], i18n.language);
+                    data = await opt_getByGenre(page.current, type, String(genreIds[curOption]), i18n.language);
                 }else{
                     data = await fetchOptions[curOption](page.current, type, i18n.language, 'week');
                 }
@@ -117,7 +117,7 @@ function Explore() {
                 window.scrollTo(0, 0);
                 let data:any = [];
                 if(isGenreOption(curOption)){
-                    data = await opt_getByGenre(1, type, genreIds[curOption], i18n.language);
+                    data = await opt_getByGenre(1, type, String(genreIds[curOption]), i18n.language);
                 }else{
                     data = await fetchOptions[curOption](1, type, i18n.language, 'week');
                 }

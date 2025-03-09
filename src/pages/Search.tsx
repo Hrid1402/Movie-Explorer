@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {getTrendingMovies, searchByName} from '../api/moviesData.js'
+import {getTrendingMovies, searchByName} from '../api/moviesData.ts'
 import ClipLoader from "react-spinners/ClipLoader";
 import Movie from '../components/Movie.js';
 import { useTranslation } from "react-i18next";
@@ -59,7 +59,7 @@ function Search() {
                     movies.map((movie:any, i:number)=>{
                         if(movie.media_type === 'person')return
                         return(
-                            <Movie key={i} movie={movie} path={'/search/'}/>
+                            <Movie key={i} movie={movie} path={'/search/'} type={undefined}/>
                         )
                     })
                 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import styles from '../styles/MovieInf.module.css'
-import {getMovieDataById, getSeasonData, getSimilarMovies, getMovieImages, getMovieCast, getMovieTrailer} from '../api/moviesData'
+import {getMovieDataById, getSeasonData, getSimilarMovies, getMovieImages, getMovieCast, getMovieTrailer} from '../api/moviesData.js'
 import { useTranslation } from "react-i18next";
 import { IoMdStar } from "react-icons/io";
 import YouTubeEmbed from '../components/YouTubeEmbed.js';
@@ -310,7 +310,7 @@ function MovieInf() {
                                 similars.map((s:any, i:number)=>{
                                     if(!s.poster_path)return
                                     return(
-                                        <Movie type={type} key={i} movie={s}/>
+                                        <Movie type={type} key={i} movie={s} path={undefined}/>
                                     )
                                 })
                             }
