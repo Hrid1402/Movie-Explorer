@@ -3,7 +3,7 @@ import Movie from '../components/Movie.js';
 import styles from '../styles/Library.module.css'
 
 function Library() {
-    const [myLibrary, setMyLibrary] = useState<any>(JSON.parse(localStorage.getItem("library") || "[]"));
+    const [myLibrary] = useState<any>(JSON.parse(localStorage.getItem("library") || "[]"));
     const [curFilter, setCurFilter] = useState<string>('all');
 
     function handleFilterChange(e: React.ChangeEvent<HTMLSelectElement>){

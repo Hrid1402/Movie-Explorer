@@ -1,7 +1,6 @@
-import React from 'react';
 import styles from '../styles/MovieInf.module.css'
 
-const YouTubeEmbed = ({ videoId }) => (
+const YouTubeEmbed = ({ videoId }: { videoId: any }) => (
     <iframe className={styles.youtube}
       width="100%"
       height="100%"

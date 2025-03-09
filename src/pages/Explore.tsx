@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Outlet, useParams } from 'react-router-dom'
 import styles from '../styles/Explore.module.css'
 import { useTranslation } from "react-i18next";

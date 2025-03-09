@@ -82,13 +82,13 @@ export async function getMovieTrailer(type:string | undefined, id:string | undef
         finalTrailers = trailers.filter((t:any) => t.official === true && (t.type === "Trailer" || t.type === "Teaser " || t.type === "Clip" || t.type === "Opening Credits"));
 
         if(finalTrailers.length > 0){
-            finalTrailers.sort((a:any, b:any) => (a.type === "Trailer" ? -1 : 1));
+            finalTrailers.sort((a:any, _b:any) => (a.type === "Trailer" ? -1 : 1));
             return finalTrailers
         }else{
             const ogData = await axios.get(`${BASE_URL}/${type}/${id}/videos`,{headers: HEADERS});
             const oGTrailers = ogData.data.results;
             finalTrailers = oGTrailers.filter((t:any) => t.official === true && (t.type === "Trailer" || t.type === "Teaser " || t.type === "Clip" || t.type === "Opening Credits"));
-            finalTrailers.sort((a:any, b:any) => (a.type === "Trailer" ? -1 : 1));
+            finalTrailers.sort((a:any, _b:any) => (a.type === "Trailer" ? -1 : 1));
             return finalTrailers
         }
         

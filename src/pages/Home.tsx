@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {getTrendingMovies, getMovieImages} from '../api/moviesData.ts'
 import { useTranslation } from "react-i18next";
 import Movie from '../components/Movie.js';

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {getTrendingMovies, searchByName} from '../api/moviesData.ts'
 import ClipLoader from "react-spinners/ClipLoader";
 import Movie from '../components/Movie.js';
