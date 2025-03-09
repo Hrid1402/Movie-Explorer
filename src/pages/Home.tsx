@@ -88,7 +88,7 @@ function Home() {
           <div className={styles['main-movies-left']}>
             {mainMovie.logo && <img className={styles['main-movies-logo']} src={mainMovie.logo}/>}
             <div className={styles['main-movies-data-text']}>
-              <p><b>{mainMovie.original_title}: </b> {mainMovie.overview}</p>
+              <p><b>{mainMovie.original_title ?? mainMovie.original_name}: </b> {mainMovie.overview}</p>
             </div>
             <Link className={styles['more-inf']} to={`/${mainMovie.media_type}/${mainMovie.id}`}>{t('more_inf')}</Link>
           </div>

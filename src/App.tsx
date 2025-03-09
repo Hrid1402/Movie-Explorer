@@ -6,6 +6,7 @@ import MovieInf from "./pages/MovieInf";
 import './styles/App.css'
 import Search from "./pages/Search";
 import Library from "./pages/Library";
+import Explore from "./pages/Explore";
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
           <Route path="/:type/:id" element={<MovieInf />} />
         </Route>
         <Route path="/search" element={<Search />}>
+          <Route path=":type/:id" element={<MovieInf />} />
+        </Route>
+        <Route path="/explore/:type" element={<Explore />}>
           <Route path=":type/:id" element={<MovieInf />} />
         </Route>
         <Route path="/library" element={<Library/>}/>

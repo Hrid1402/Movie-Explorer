@@ -54,6 +54,7 @@
     align-items: center;
 }
 .right-side select{
+    margin: 0;
     border: 1px solid white;
     background-color: transparent;
     color: white;
@@ -64,8 +65,8 @@
 .right-side select option{
     color: black;
 }
-.home-btn{
-
+.selected{
+    border-bottom: 2px solid white;
 }
 .search-btn{
     display: flex;
