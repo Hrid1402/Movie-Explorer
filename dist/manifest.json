@@ -1,26 +1,50 @@
 {
+    "id": "moviespot",
     "short_name": "MovieSpot",
     "name": "MovieSpot",
+    "description": "A movie and series explorer app.",
+    "launch_handler": {
+    "client_mode": "navigate"
+    },
+    "orientation": "any",
     "icons": [
-      {
-        "src": "movie-icon.png",
-        "sizes": "240x240",
-        "type": "image/png"
-      },
-      {
-        "src": "movie-icon-2.png",
-        "sizes": "512x512",
-        "type": "image/png"
-      },
-      {
-        "src": "maskable-icon.png",
-        "sizes": "512x512",
-        "type": "image/png",
-        "purpose": "maskable"
-      }
+        {
+            "src": "movie-icon-2.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "movie-icon.png",
+            "sizes": "240x240",
+            "type": "image/png"
+        },
+        {
+            "src": "movie-icon-2.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "maskable-icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "screenshot-landscape.png",
+            "sizes": "1920x1080",
+            "type": "image/png"
+        },
+        {
+            "src": "screenshot-portrait.png",
+            "sizes": "720x1280",
+            "type": "image/png"
+        }
     ],
     "start_url": "/",
     "display": "standalone",
     "theme_color": "#0d0d0d",
-    "background_color": "#0d0d0d"
+    "background_color": "#FFFFFF"
   }

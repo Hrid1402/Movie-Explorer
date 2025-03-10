@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import styles from '../styles/MovieInf.module.css'
 import {getMovieDataById, getSeasonData, getSimilarMovies, getMovieImages, getMovieCast, getMovieTrailer} from '../api/moviesData.js'
 import { useTranslation } from "react-i18next";
@@ -9,6 +9,7 @@ import Movie from '../components/Movie.js';
 import HashLoader from "react-spinners/HashLoader";
 import { CiClock1 } from "react-icons/ci";
 import no_photo from '../assets/no-photo.png'
+import { IoReturnUpBack } from "react-icons/io5";
 import "../config/i18n.js";
 
 function MovieInf() {
@@ -29,6 +30,8 @@ function MovieInf() {
     const [episodesData, setEpisodesData] = useState<any>(null);
     const [similars, setSimilars] = useState<any>([]);
     const { t, i18n } = useTranslation();
+
+    const navigate = useNavigate();
 
     const [myLibrary, setMyLibrary] = useState<any>(JSON.parse(localStorage.getItem("library") || "[]"));
     const [onLibrary, setOnLibrary] = useState<boolean>(false);
@@ -141,6 +144,7 @@ function MovieInf() {
           ? `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url('${imageURL1280W + allMovieData.backdrop_path}') no-repeat center center / cover`
           : '#0d0d0d',
       }}>
+        <button className={styles['return-btn']} onClick={()=>navigate(-1)}><IoReturnUpBack color='white'/></button>
         {
             loading || allMovieData===null? 
             <div style={{height:'100svh', display:'grid', placeItems:'center'}}>
