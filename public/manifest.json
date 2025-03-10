@@ -1,0 +1,26 @@
+{
+    "short_name": "MovieSpot",
+    "name": "MovieSpot",
+    "icons": [
+      {
+        "src": "movie-icon.png",
+        "sizes": "240x240",
+        "type": "image/png"
+      },
+      {
+        "src": "movie-icon-2.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "maskable-icon.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "maskable"
+      }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#0d0d0d",
+    "background_color": "#0d0d0d"
+  }

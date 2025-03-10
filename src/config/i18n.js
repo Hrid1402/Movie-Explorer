@@ -51,7 +51,15 @@ i18n
             opt_tvMovie: "TV Movie",
             opt_thriller: "Thriller",
             opt_war: "War",
-            opt_western: "Western"
+            opt_western: "Western",
+
+            personal_inf:"Personal Information",
+            primary_prof: "Primary Profession",
+            birthday: "Birthday",
+            deathday: "Deathday",
+            notable_roles: "Notable Roles",
+            place_birth: "Place of Birth",
+            other_contributions: "Other Contributions"
           }
         },
         es: {
@@ -95,7 +103,15 @@ i18n
             opt_tvMovie: "Película de TV",
             opt_thriller: "Suspenso",
             opt_war: "Guerra",
-            opt_western: "Western"
+            opt_western: "Western",
+
+            personal_inf: "Información Personal",
+            primary_prof: "Profesión Principal",
+            birthday: "Cumpleaños",
+            deathday: "Fallecimiento",
+            notable_roles: "Roles Notables",
+            place_birth: "Lugar de Nacimiento",
+            other_contributions: "Otras Contribuciones",
           }
         },
         de: {
@@ -138,7 +154,15 @@ i18n
             "opt_tvMovie": "TV-Film",
             "opt_thriller": "Thriller",
             "opt_war": "Krieg",
-            "opt_western": "Western"
+            "opt_western": "Western",
+
+            personal_inf: "Persönliche Informationen",
+            primary_prof: "Hauptberuf",
+            birthday: "Geburtstag",
+            deathday: "Todestag",
+            notable_roles: "Bemerkenswerte Rollen",
+            place_birth: "Geburtsort",
+            other_contributions: "Weitere Beiträge",
           }
         },
         fr: {
@@ -181,7 +205,15 @@ i18n
             "opt_tvMovie": "Téléfilm",
             "opt_thriller": "Thriller",
             "opt_war": "Guerre",
-            "opt_western": "Western"
+            "opt_western": "Western",
+
+            personal_inf: "Informations Personnelles",
+            primary_prof: "Profession Principale",
+            birthday: "Anniversaire",
+            deathday: "Date de décès",
+            notable_roles: "Rôles Notables",
+            place_birth: "Lieu de Naissance",
+            other_contributions: "Autres Contributions",
           }
         },
         it: {
@@ -224,7 +256,15 @@ i18n
             "opt_tvMovie": "Film TV",
             "opt_thriller": "Thriller",
             "opt_war": "Guerra",
-            "opt_western": "Western"
+            "opt_western": "Western",
+
+            personal_inf: "Informazioni Personali",
+            primary_prof: "Professione Principale",
+            birthday: "Compleanno",
+            deathday: "Data di morte",
+            notable_roles: "Ruoli Notevoli",
+            place_birth: "Luogo di Nascita",
+            other_contributions: "Altri Contributi"
           }
         }
       }

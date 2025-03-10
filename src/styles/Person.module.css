@@ -1,0 +1,91 @@
+.person-container{
+    margin-top: 125px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100svh;
+    width: 100%; 
+}
+.actor-data-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+.actor-data-container{
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+}
+.left-side-actor{
+    overflow-y: auto;
+    height: 700px;
+}
+.actor-data-container img{
+
+    object-fit: cover;
+    height: 700px;
+    width: 95%;
+    font-size: 1.25rem;
+    max-width: 400px;
+}
+.actor-data-container h1{
+    margin: 10px;
+    line-height: 50px;
+}
+.actor-data-container p{
+    margin: 0;
+    font-size: 16px;
+    padding: 10px;
+}
+.other-data{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: white;
+    gap: 15px;
+}
+.title{
+    color: white;
+    font-size: 2.125rem;
+    margin-bottom: 0;
+}
+.other-data p{
+    font-size: 1.125rem;
+    margin: 0;
+}
+.movies-container{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 25px;
+    display: grid;
+    place-content: center;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+}
+@media (width<=700px) {
+    .actor-data-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: white;
+    }
+    .left-side-actor{
+        overflow-y: auto;
+        height: 40svh;
+    }
+    .actor-data-container img{
+        width: 95%;
+        height: auto;
+    }
+    .movies-container{
+        padding: 15px;
+        gap: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+    }
+}

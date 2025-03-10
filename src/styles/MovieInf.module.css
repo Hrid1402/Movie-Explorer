@@ -133,7 +133,15 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     display: flex;
     text-align: center;
+    color: black;
     flex-direction: column;
+    position: relative;
+    transition: transform 0.3s;
+}
+.cast-element:hover{
+    color: black;
+    transition: transform 0.2s;
+    transform: translateY(-15px);
 }
 .cast-element-data{
     padding: 10px;
@@ -157,6 +165,8 @@
 }
 .cast-character{
     line-height: 22px;
+    font-weight: 400;
+    color: rgb(82, 82, 82);
     font-size: 18px;
     margin: 0;
 }

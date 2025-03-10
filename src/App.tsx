@@ -7,6 +7,7 @@ import './styles/App.css'
 import Search from "./pages/Search";
 import Library from "./pages/Library";
 import Explore from "./pages/Explore";
+import Person from "./pages/Person";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/explore/:type" element={<Explore />}>
           <Route path=":type/:id" element={<MovieInf />} />
         </Route>
+        <Route path="/person/:id" element={<Person/>}/>
         <Route path="/library" element={<Library/>}/>
       </Route>
       <Route path="*" element={<NotFound />} />

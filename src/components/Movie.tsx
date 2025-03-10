@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from '../styles/Movie.module.css'
 import { IoMdStar } from "react-icons/io";
 
-const imageURL:String = 'https://image.tmdb.org/t/p/w400/';
+const imageURL:String = 'https://image.tmdb.org/t/p/w300/';
 
 interface Movie {
     backdrop_path: string;

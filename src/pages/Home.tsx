@@ -27,7 +27,7 @@ interface MovieInterface {
 }
 
 function Home() {
-  const imageURL:String = 'https://image.tmdb.org/t/p/original/';
+  const imageURL1280W:String = 'https://image.tmdb.org/t/p/w1280/';
   const imageURL400:String = 'https://image.tmdb.org/t/p/w400/';
 
   const [movies, setMovies] = useState<MovieInterface[]>([]);
@@ -86,13 +86,13 @@ function Home() {
         mainMovie && 
         <div className={styles['main-movies']} >
           <div className={styles['main-movies-left']}>
-            {mainMovie.logo && <img className={styles['main-movies-logo']} src={mainMovie.logo}/>}
+            {mainMovie.logo && <img className={styles['main-movies-logo']} src={mainMovie.logo} loading='lazy'/>}
             <div className={styles['main-movies-data-text']}>
               <p><b>{mainMovie.original_title ?? mainMovie.original_name}: </b> {mainMovie.overview}</p>
             </div>
             <Link className={styles['more-inf']} to={`/${mainMovie.media_type}/${mainMovie.id}`}>{t('more_inf')}</Link>
           </div>
-          <img className={styles['main-movie-backdrop']} src={imageURL + mainMovie.backdrop_path}/>
+          <img className={styles['main-movie-backdrop']} src={imageURL1280W + mainMovie.backdrop_path} loading='lazy'/>
         </div>
       }
       <h3 className={styles['trending-text']}>{t('trending_text')}</h3>

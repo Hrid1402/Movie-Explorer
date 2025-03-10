@@ -38,6 +38,7 @@ function Explore() {
       ];      
 
     const [curOption, setCurOption] = useState<string>("opt_trending");
+    const [curSort, setCurSort] = useState<string>('popularity')
     const { t, i18n } = useTranslation();
     const {type} = useParams();
     let page = useRef<number>(1);
@@ -107,7 +108,7 @@ function Explore() {
                 page.current += 1;
                 let data:any = [];
                 if(isGenreOption(curOption)){
-                    data = await opt_getByGenre(page.current, type, String(genreIds[curOption]), i18n.language);
+                    data = await opt_getByGenre(page.current, type, String(genreIds[curOption]), i18n.language, curSort);
                 }else{
                     data = await fetchOptions[curOption](page.current, type, i18n.language, 'week');
                 }
@@ -117,7 +118,7 @@ function Explore() {
                 window.scrollTo(0, 0);
                 let data:any = [];
                 if(isGenreOption(curOption)){
-                    data = await opt_getByGenre(1, type, String(genreIds[curOption]), i18n.language);
+                    data = await opt_getByGenre(1, type, String(genreIds[curOption]), i18n.language, curSort);
                 }else{
                     data = await fetchOptions[curOption](1, type, i18n.language, 'week');
                 }
@@ -142,6 +143,13 @@ function Explore() {
         handleOption();
       },[curOption])
 
+      useEffect(()=>{
+        window.scrollTo(0, 0);
+        page.current = 0;
+        setMovies([]);
+        handleOption();
+      },[curSort])
+
       
   return (
     <div className={styles['explore-container']}>
@@ -154,7 +162,18 @@ function Explore() {
                   )
               })}
           </nav>
+          {
+            isGenreOption(curOption) &&
+            <>
+            <select className={styles['sort-section']} onChange={e=>{setCurSort(e.target.value)}}>
+              <option value="popularity">{t('opt_popular')}</option>
+              <option value="vote_average">{t('opt_bestRated')}</option>
+              <option value="release_date">{t('opt_latest')}</option>
+            </select>
+          </>
+          }
         </div>
+        
         <div>
         <InfiniteScroll
           dataLength={movies.length}

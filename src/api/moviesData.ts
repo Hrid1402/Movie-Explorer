@@ -68,7 +68,7 @@ export async function getMovieImages(type:string | undefined, id:string | undefi
 export async function getMovieCast(type:string | undefined, id:string | undefined){
     try {
         const data = await axios.get(`https://api.themoviedb.org/3/${type}/${id}/credits`,{headers: HEADERS});
-        return data.data.cast.slice(0, 10);
+        return data.data.cast.slice(0, 20);
     } catch (error: any) {
         console.log('Error trying to fetch movie cast', error.error);
     }
@@ -101,7 +101,7 @@ export async function getMovieTrailer(type:string | undefined, id:string | undef
 
 export async function opt_getTrending(page:number, type:string | undefined, language:string, time:string){
     try {
-        const data = await axios.get(`${BASE_URL}/trending/${type}/${time}?language=${language}&page=${page}`,{headers: HEADERS});
+        const data = await axios.get(`${BASE_URL}/trending/${type}/${time}?language=${language}&page=${page}&vote_count.gte=100`,{headers: HEADERS});
         return data.data.results;
     } catch (error: any) {
         console.log('Error trying to fetch trending opt', error.error);
@@ -110,7 +110,7 @@ export async function opt_getTrending(page:number, type:string | undefined, lang
 
 export async function opt_getLatest(page:number, type:string | undefined, language:string){
     try {
-        const data = await axios.get(`${BASE_URL}/discover/${type}?language=${language}&page=${page}&sort_by=primary_release_date.desc`,{headers: HEADERS});
+        const data = await axios.get(`${BASE_URL}/discover/${type}?language=${language}&page=${page}&sort_by=primary_release_date.desc&vote_count.gte=100`,{headers: HEADERS});
         return data.data.results;
     } catch (error: any) {
         console.log('Error trying to fetch latest opt', error.error);
@@ -128,7 +128,7 @@ export async function opt_getBestRated(page:number, type:string | undefined, lan
 
 export async function opt_getPopular(page:number, type:string | undefined, language:string) {
     try {
-        const data = await axios.get(`${BASE_URL}/${type}/popular?language=${language}&page=${page}`, { headers: HEADERS });
+        const data = await axios.get(`${BASE_URL}/${type}/popular?language=${language}&page=${page}&vote_count.gte=100`, { headers: HEADERS });
         return data.data.results;
     } catch (error: any) {
         console.log('Error trying to fetch popular opt', error);
@@ -137,7 +137,7 @@ export async function opt_getPopular(page:number, type:string | undefined, langu
 
 export async function opt_getUpcoming(page:number, type:string | undefined, language:string) {
     try {
-        const data = await axios.get(`${BASE_URL}/${type}/upcoming?language=${language}&page=${page}`, { headers: HEADERS });
+        const data = await axios.get(`${BASE_URL}/${type}/upcoming?language=${language}&page=${page}&vote_count.gte=100`, { headers: HEADERS });
         return data.data.results;
     } catch (error: any) {
         console.log('Error trying to fetch upcoming opt', error);
@@ -146,18 +146,37 @@ export async function opt_getUpcoming(page:number, type:string | undefined, lang
 
 export async function opt_getNowPlaying(page:number, type:string | undefined, language:string) {
     try {
-        const data = await axios.get(`${BASE_URL}/${type}/now_playing?language=${language}&page=${page}`, { headers: HEADERS });
+        const data = await axios.get(`${BASE_URL}/${type}/now_playing?language=${language}&page=${page}&vote_count.gte=100`, { headers: HEADERS });
         return data.data.results;
     } catch (error: any) {
         console.log('Error trying to fetch now playing opt', error);
     }
 }
 
-export async function opt_getByGenre(page:number, type:string | undefined, genreId:string | undefined, language:string) {
+export async function opt_getByGenre(page:number, type:string | undefined, genreId:string | undefined, language:string, sort:string='popularity') {
     try {
-        const data = await axios.get(`${BASE_URL}/discover/${type}?language=${language}&page=${page}&with_genres=${genreId}`, { headers: HEADERS });
+        const data = await axios.get(`${BASE_URL}/discover/${type}?language=${language}&page=${page}&with_genres=${genreId}&sort_by=${sort}.desc&vote_count.gte=100`, { headers: HEADERS });
         return data.data.results;
     } catch (error: any) {
         console.log(`Error trying to fetch genre ${genreId} opt`, error);
     }
 }
+
+export async function getPersonData(id:string | undefined, language:string) {
+    try {
+        const data = await axios.get(`${BASE_URL}/person/${id}?language=${language}`, { headers: HEADERS });
+        return data.data;
+    } catch (error: any) {
+        console.log(`Error trying to fetch person data`, error);
+    }
+}
+
+export async function getPersonMovies(id:string | undefined, language:string) {
+    try {
+        const data = await axios.get(`${BASE_URL}/person/${id}/combined_credits?language=${language}`, { headers: HEADERS });
+        return data.data;
+    } catch (error: any) {
+        console.log(`Error trying to fetch person movies`, error);
+    }
+}
+

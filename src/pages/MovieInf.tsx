@@ -12,10 +12,11 @@ import no_photo from '../assets/no-photo.png'
 import "../config/i18n.js";
 
 function MovieInf() {
-    const imageURL:String = 'https://image.tmdb.org/t/p/original/';
+    const imageURL500W:String = 'https://image.tmdb.org/t/p/w500/';
     const imageURL2W:String = 'https://image.tmdb.org/t/p/w200/';
     const imageURL3W:String = 'https://image.tmdb.org/t/p/w300/';
     const imageURL4W:String = 'https://image.tmdb.org/t/p/w400/';
+    const imageURL1280W:String = 'https://image.tmdb.org/t/p/w1280/'
 
     const {type, id} = useParams();
     const [loading, setLoading] = useState<boolean>(false);
@@ -137,7 +138,7 @@ function MovieInf() {
   return (
     <div className={styles.container} style={{
         background: allMovieData && allMovieData.backdrop_path
-          ? `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url('${imageURL + allMovieData.backdrop_path}') no-repeat center center / cover`
+          ? `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url('${imageURL1280W + allMovieData.backdrop_path}') no-repeat center center / cover`
           : '#0d0d0d',
       }}>
         {
@@ -149,7 +150,7 @@ function MovieInf() {
             <>
                 <div className={styles['images-container']}>
                     <div className={styles['left-content']}>
-                        <img className={styles.poster} src={imageURL+allMovieData.poster_path} alt="poster" />
+                        <img className={styles.poster} src={imageURL500W+allMovieData.poster_path} alt="poster" loading='lazy'/>
                         <div className={styles['small-data']}>
                             <p>{(new Date(allMovieData.release_date ?? allMovieData.first_air_date)).getFullYear()}</p>
                             {allMovieData.runtime && <p>{convertMinutes(allMovieData.runtime)}</p>}
@@ -161,7 +162,7 @@ function MovieInf() {
                         </div>
                     </div>
                     <div className={styles['right-content']}>
-                        {movieLogo ? <img className={styles.logo} src={imageURL4W+movieLogo}/> : <h1 className={styles['second-title']}>{allMovieData.title}</h1>}
+                        {movieLogo ? <img className={styles.logo} src={imageURL4W+movieLogo} loading='lazy'/> : <h1 className={styles['second-title']}>{allMovieData.title}</h1>}
                         <div className={styles['original-title']}>
                             <span>{t('ogTitle')}: </span>
                             <span>{allMovieData.original_title ?? allMovieData.original_name}</span>
@@ -178,7 +179,7 @@ function MovieInf() {
                         </div>
                         <div className={styles['genres-container']}>
                             {allMovieData.genres.map((g:any)=>{
-                                return <Link key={g.id} className={styles.genre} to='/'>{g.name}</Link>
+                                return <Link key={g.id} className={styles.genre} to={`/explore/${type}`}>{g.name}</Link>
                             })}
                         </div>
                         <p className={styles.overview}>{allMovieData.overview}</p>
@@ -202,7 +203,7 @@ function MovieInf() {
                                         <option className={styles.option} value={s.season_number} key={s.id}>{s.name}</option>
                                     ))}
                                 </select>
-                                {curSeasonData && <img className={styles['season-poster']} src={imageURL4W+(curSeasonData.poster_path ? curSeasonData.poster_path : allMovieData.poster_path)}/>}
+                                {curSeasonData && <img className={styles['season-poster']} src={imageURL3W+(curSeasonData.poster_path ? curSeasonData.poster_path : allMovieData.poster_path)} loading='lazy'/>}
                                 {episodesData && 
                                     <div className={styles['season-overview']}>
                                         <p>
@@ -230,7 +231,7 @@ function MovieInf() {
                                                     return(
                                                         <div className={styles.episode} key={episode.id}>
                                                             <div className={styles.episodeImage}>
-                                                                <img className={`${date !== 'Past' ? styles.futureEpisodeIMG : ''}`} src={imageURL3W+episode.still_path} onError={e=>e.currentTarget.src=imageURL3W+allMovieData.poster_path}/>
+                                                                <img className={`${date !== 'Past' ? styles.futureEpisodeIMG : ''}`} src={imageURL2W+episode.still_path} onError={e=>e.currentTarget.src=imageURL3W+allMovieData.poster_path} loading='lazy'/>
                                                                 <div className={styles['episode-number']}>
                                                                     <p >{episode.episode_number}</p>
                                                                 </div>
@@ -268,13 +269,13 @@ function MovieInf() {
                         {
                             movieCast.map((c:any)=>{
                                 return (
-                                    <div key={c.id} className={styles['cast-element']}>
-                                        <img src={c.profile_path ? imageURL2W+c.profile_path : no_photo} />
+                                    <Link to={'/person/'+c.id} key={c.id} className={styles['cast-element']}>
+                                        <img src={c.profile_path ? imageURL2W+c.profile_path : no_photo} loading='lazy'/>
                                         <div className={styles['cast-element-data']}>
                                             <p className={styles['cast-name']}>{c.name}</p>
                                             <p className={styles['cast-character']}>{c.character}</p>
                                         </div>
-                                    </div>
+                                    </Link>
                                 )
                             })
                         }
