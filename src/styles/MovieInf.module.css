@@ -16,7 +16,36 @@
     z-index: 3;
 }
 
+.btns-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.share-btn{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    color: white;
+    border-radius: 1.6rem;
+    background-color: transparent;
+    transition: background-color 0.3s, color 0.3s;
+}
+.share-btn:hover{
+    transition: background-color 0.2s, color 0.2s;
+    color: black;
+    background-color: white;
+}
+.share-btn svg{
+    width: 20px;
+    height: 20px;
+}
 .add-btn{
+    width: 100%;
     border: 1px solid white;
     color: white;
     border-radius: 1.6rem;
@@ -27,6 +56,18 @@
     transition: background-color 0.2s, color 0.2s;
     color: black;
     background-color: white;
+}
+.remove-btn{
+    border: 1px solid white;
+    color: black;
+    border-radius: 1.6rem;
+    background-color: white;
+    transition: background-color 0.3s, color 0.3s;
+}
+.remove-btn:hover{
+    transition: background-color 0.2s, color 0.2s;
+    color: white;
+    background-color: rgb(255, 134, 134);
 }
 .images-container{
     justify-content: center;

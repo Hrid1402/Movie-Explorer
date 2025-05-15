@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import {Helmet} from "react-helmet";
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import styles from '../styles/MovieInf.module.css'
 import {getMovieDataById, getSeasonData, getSimilarMovies, getMovieImages, getMovieCast, getMovieTrailer} from '../api/moviesData.js'
 import { useTranslation } from "react-i18next";
-import { IoMdStar } from "react-icons/io";
+import { IoMdStar, IoMdShare  } from "react-icons/io";
 import YouTubeEmbed from '../components/YouTubeEmbed.js';
 import Movie from '../components/Movie.js';
 import HashLoader from "react-spinners/HashLoader";
@@ -28,6 +29,9 @@ function MovieInf() {
     const [curTrailer, setCurTrailer] = useState<number>(0);
     const [curSeasonData, setCurSeasonData] = useState<any>(null);
     const [episodesData, setEpisodesData] = useState<any>(null);
+
+    const [metaData, setMetaData] = useState<any>({title: 'Loading...'});
+
     const [similars, setSimilars] = useState<any>([]);
     const { t, i18n } = useTranslation();
 
@@ -92,6 +96,7 @@ function MovieInf() {
             if(data.seasons){
                 setCurSeasonData(data.seasons.find((s:any)=>s.season_number===1));
             }
+            setMetaData({title: data.original_title ?? data.original_name, description: data.overview, poster: data.poster_path});
             setLoading(false);
         });
         getMovieCast(type, id).then((data:any)=>{
@@ -137,6 +142,25 @@ function MovieInf() {
         setCurSeasonData(allMovieData.seasons.find((s:any)=>s.season_number===parseInt(e.target.value)));
     }
 
+    const handleShare = async () => {
+        const fullUrl = window.location.href; // Full URL to the movie/series
+
+        if (navigator.share) {
+            try {
+            await navigator.share({
+                title: `Watch "${allMovieData.title}" now!`,
+                text: `Check out this ${allMovieData.seasons ? 'series' : 'movie'}!`,
+                url: fullUrl,
+            });
+            } catch (error) {
+            console.error('Error sharing:', error);
+            }
+        } else {
+            alert('Sharing is not supported on this browser.');
+        }
+    };
+
+
     
   return (
     <div className={styles.container} style={{
@@ -144,6 +168,12 @@ function MovieInf() {
           ? `linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url('${imageURL1280W + allMovieData.backdrop_path}') no-repeat center center / cover`
           : '#0d0d0d',
       }}>
+        <Helmet>
+            <title>{metaData.title}</title>
+            <meta property="og:title" content={metaData.title} />
+            <meta property="og:image" content={imageURL500W+ metaData.poster}/>
+            <meta property="og:description" content=''/>
+        </Helmet>
         <button className={styles['return-btn']} onClick={()=>navigate(-1)}><IoReturnUpBack color='white'/></button>
         {
             loading || allMovieData===null? 
@@ -187,9 +217,12 @@ function MovieInf() {
                             })}
                         </div>
                         <p className={styles.overview}>{allMovieData.overview}</p>
-                        {onLibrary ? 
-                        <button onClick={()=>removeFromLibrary()} className={styles['add-btn']}>{t('remove')}</button>:
-                        <button onClick={()=>addLibrary()} className={styles['add-btn']}>{t('add')}</button>}
+                        <div className={styles['btns-container']}>
+                            {onLibrary ? 
+                            <button onClick={()=>removeFromLibrary()} className={styles['remove-btn']}>{t('remove')}</button>:
+                            <button onClick={()=>addLibrary()} className={styles['add-btn']}>{t('add')}</button>}
+                            <button onClick={()=>handleShare()} className={styles['share-btn']}>{t('SHARE')}<IoMdShare /></button>
+                        </div>
                     </div>
                 </div>
                 
